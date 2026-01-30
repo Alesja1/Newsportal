@@ -1,14 +1,14 @@
->?php
+<?php
 $host = explode('?', $_SERVER['REQUEST_URI'])[0];
 $num = substr_count($host, '/');
 $path = explode('/', $host)[$num];
 
-if ($path == "" OR $path == 'index.php')
+if ($path == '' OR $path == 'index.php')
 {
-    // Главная страница -
+    // Главная страница
     $response = controllerAdmin::formLoginSite();
 }
-//------ВХОД----------------------------------------
+// ВХОД
 elseif ($path == 'login')
 {
     // Форма входа
@@ -19,8 +19,31 @@ elseif ($path == 'logout')
     // Выход
     $response = controllerAdmin::logoutAction();
 }
-
+elseif ($path=='newsAdmin') {
+    $response=controllerAdminNews::NewsList();
+}
+elseif ($path=='newsAdd') {
+    $response=controllerAdminNews::newsAddForm();
+}
+elseif ($path == 'newsAddResult') {
+    $response = controllerAdminNews::newsAddResult();
+}
+// --- edit_news
+elseif($path == 'newsEdit' && isset($_GET['id'])){
+    $response=controllerAdminNews::newsEditForm($_GET['id']);
+}
+elseif($path == 'newsEditResult' && isset($_GET['id'])){
+    $response=controllerAdminNews::newsEditResult($_GET['id']);
+}
+// --- delete_news
+elseif($path == 'newsDel' && isset($_GET['id'])){
+    $response=controllerAdminNews::newsDeleteForm($_GET['id']);
+}
+elseif($path == 'newsDeleteResult' && isset($_POST['id'])){
+    $response=controllerAdminNews::newsDeleteResult($_POST['id']);
+}
 else
-{   // Страница не существует
+{
+    // Страница не существует
     $response = controllerAdmin::error404();
 }

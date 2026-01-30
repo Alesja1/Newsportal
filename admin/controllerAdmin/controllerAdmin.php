@@ -7,11 +7,11 @@ class controllerAdmin {
 
     // форма авторизации админа
     public static function loginAction() {
-        $login = modelAdmin::userAuthentication();
-
-        if (isset($login) and $login == true) {
+        $logIn = modelAdmin::userAuthentication();
+        if (isset($logIn) && $logIn == true) {
             include_once('viewAdmin/startAdmin.php');
-        } else {
+        }
+        else {
             $_SESSION['errorString'] = 'Неправильное имя пользователя или пароль';
             include_once('viewAdmin/formLogin.php');
         }
@@ -25,8 +25,8 @@ class controllerAdmin {
 
     // Страница Error
     public static function error404() {
-         include_once('viewAdmin/error404.php');
+        include_once('viewAdmin/error404.php');
     }
-}
-// end class
+
+} // end class
 ?>
